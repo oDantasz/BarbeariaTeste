@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+/* ============ Tokens ============
+   azulejo  #EDF2F4  fundo (parede de azulejo)
+   tinta    #142033  texto
+   azul     #0B63A0  ação (azul do desinfetante de pentes)
+   couro    #7C1D2A  destaque (couro da cadeira)
+   rejunte  #D3DDE3  bordas
+*/
+@theme {
+  --font-sans: "Archivo Variable", ui-sans-serif, system-ui, sans-serif;
+
+  --color-tile: #edf2f4;
+  --color-surface: #ffffff;
+  --color-grout: #d3dde3;
+  --color-ink: #142033;
+  --color-ink-2: #4a5868;
+  --color-blue: #0b63a0;
+  --color-blue-ink: #084b7a;
+  --color-blue-tint: #dcebf5;
+  --color-leather: #7c1d2a;
+  --color-leather-tint: #f6e6e8;
+  --color-ok: #1c7343;
+  --color-ok-tint: #e2f2e8;
+  --color-danger: #a3241e;
+  --color-danger-tint: #fbe9e7;
+  --color-warn: #8a5a00;
+  --color-warn-tint: #fdf1d6;
+
+  --radius-xl: 1.25rem;
+  --radius-2xl: 1.75rem;
+
+  --ease-out-soft: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --animate-pole: pole 2.4s linear infinite;
+  --animate-pole-fast: pole 1.2s linear infinite;
+
+  @keyframes pole {
+    to { background-position: 0 var(--pole-period, 64px); }
+  }
+}
+
+@layer base {
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+  body {
+    @apply bg-tile text-ink antialiased;
+    font-variant-numeric: lining-nums;
+    touch-action: manipulation;
+  }
+  :focus-visible { outline: 3px solid var(--color-blue); outline-offset: 2px; }
+  button, [role="button"], a { cursor: pointer; }
+  ::selection { background: var(--color-blue-tint); }
+}
+
+@utility font-wide { font-stretch: 125%; }
+@utility font-semiwide { font-stretch: 112%; }
+@utility font-narrow { font-stretch: 82%; }
+@utility tabular { font-variant-numeric: tabular-nums; }
+
+/* Listras do poste de barbeiro */
+@utility bg-pole {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    var(--color-blue) 0 10px, #fff 10px 16px,
+    var(--color-leather) 16px 26px, #fff 26px 32px
+  );
+}
+@utility bg-pole-x {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    var(--color-blue) 0 10px, #fff 10px 16px,
+    var(--color-leather) 16px 26px, #fff 26px 32px
+  );
+  background-size: 45.25px 45.25px;
+}
+
+/* Parede de azulejo com fade */
+@utility bg-tiles {
+  background-image:
+    linear-gradient(to right, var(--color-grout) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-grout) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+}
